@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,8 +44,9 @@ fun StationDetailScreen(
                     Text(
                         text = station.name,
                         modifier = Modifier.padding(8.dp),
-                        style = MaterialTheme.typography.h2,
-                        maxLines = 2,
+                        style = MaterialTheme.typography.h4.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
                         overflow = TextOverflow.Ellipsis
                     )
                 }
