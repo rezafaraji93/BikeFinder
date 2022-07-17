@@ -8,6 +8,7 @@ import ir.romina.reza.feature_map_screen.data.mapper.toStation
 import ir.romina.reza.feature_map_screen.data.remote.StationsApi
 import ir.romina.reza.feature_map_screen.domain.model.Station
 import ir.romina.reza.feature_map_screen.domain.repository.StationRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.lang.Exception
@@ -40,6 +41,10 @@ class StationRepositoryImpl(
 
     override suspend fun getStationsFromDb(): Resource<List<Station>> {
         return Resource.Success(data = dao.getStations().first())
+    }
+
+    override fun getStationFromDb(stationId: String): Flow<Station> {
+        return dao.getStationData(stationId)
     }
 
 

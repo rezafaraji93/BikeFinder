@@ -19,4 +19,7 @@ interface StationsDao {
     @Query("DELETE FROM stations")
     suspend fun deleteStations()
 
+    @Query("SELECT * FROM stations WHERE station_id = :stationId")
+    fun getStationData(stationId: String): Flow<Station>
+
 }

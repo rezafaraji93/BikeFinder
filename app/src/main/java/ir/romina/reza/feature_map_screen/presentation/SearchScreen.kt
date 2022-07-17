@@ -1,11 +1,8 @@
 package ir.romina.reza.feature_map_screen.presentation
 
-import android.graphics.drawable.shapes.Shape
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -22,21 +19,18 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import ir.romina.reza.core.presentation.ui.theme.LocalSpacing
-import ir.romina.reza.core.presentation.ui.theme.Shapes
 import ir.romina.reza.core.presentation.util.UiEvent
 import ir.romina.reza.core.presentation.util.asString
 import ir.romina.reza.feature_map_screen.domain.model.Station
 import ir.romina.reza.feature_map_screen.presentation.component.ModalBottomSheetContent
 import ir.romina.reza.feature_map_screen.presentation.component.SearchTextField
-import ir.romina.reza.feature_map_screen.presentation.component.StationInfoItem
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
-@OptIn(ExperimentalComposeUiApi::class, androidx.compose.material.ExperimentalMaterialApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun SearchScreen(
-    onNavigateToDetailScreen: (Station) -> Unit,
+    onNavigateToDetailScreen: (String) -> Unit,
     scaffoldState: ScaffoldState,
     viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
@@ -82,26 +76,32 @@ fun SearchScreen(
     val bottomSheetState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
+
     BottomSheetScaffold(
         sheetContent = {
             ModalBottomSheetContent(
                 onLocateClicked = { station ->
                     scope.launch {
-                        bottomSheetState.bottomSheetState.collapse()
-                        cameraPositionState.position = CameraPosition.fromLatLngZoom(LatLng(station.lat, station.lng), 15f)
+                        bottomSheetState.bottomSheetState.animateTo(BottomSheetValue.Collapsed)
+                    }
+                    scope.launch {
+                        val cameraUpdate = CameraUpdateFactory.newCameraPosition(
+                            CameraPosition(LatLng(station.lat, station.lng), 15f, 0f, 0f)
+                        )
+                        cameraPositionState.animate(cameraUpdate)
                     }
                 },
                 onShowItemDetailClicked = {
                     scope.launch {
-                        onNavigateToDetailScreen(it)
-                        bottomSheetState.bottomSheetState.collapse()
+                        onNavigateToDetailScreen(it.station_id)
                     }
                 },
                 stations = stations
             )
         },
         sheetBackgroundColor = MaterialTheme.colors.background,
-        sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+        sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+        scaffoldState = bottomSheetState
     ) {
         Box(
             modifier = Modifier

@@ -10,4 +10,6 @@ interface StationRepository {
 
     suspend fun getStationsFromDb(): Resource<List<Station>>
 
+    fun getStationFromDb(stationId: String): Flow<Station>
+
 }

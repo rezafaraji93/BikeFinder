@@ -14,6 +14,7 @@ import ir.romina.reza.feature_map_screen.data.remote.StationsApi
 import ir.romina.reza.feature_map_screen.data.repository.StationRepositoryImpl
 import ir.romina.reza.feature_map_screen.domain.repository.StationRepository
 import ir.romina.reza.feature_map_screen.domain.use_case.GetStationsUseCase
+import ir.romina.reza.feature_station_detail.domain.use_case.GetStationDataUseCase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -72,6 +73,12 @@ object AppModule {
     @Singleton
     fun provideGetStationsUseCase(repository: StationRepository): GetStationsUseCase {
         return GetStationsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetStationUseCase(repository: StationRepository): GetStationDataUseCase {
+        return GetStationDataUseCase(repository)
     }
 
 }
