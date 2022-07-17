@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ir.romina.reza">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".core.BikeFinderApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/Theme.BikeFinder">
+        <activity
+            android:name=".core.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.BikeFinder">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAXfm_zo7IRW2AUMVPLWaXUpxIOGM70Fm0"/>
+    </application>
+
+</manifest>

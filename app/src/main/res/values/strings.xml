@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Bike Finder</string>
+    <string name="unknownError">Unknown Error</string>
+    <string name="connectionError">Something went wrong with server</string>
+    <string name="emptyListFetched">No stations found!</string>
+    <string name="search">Search</string>
+    <string name="locate">Locate</string>
+    <string name="details">Details</string>
+    <string name="checkInternetConnection">Check your network connectivity</string>
+    <string name="dbIsEmpty">Database is empty, please connect your phone to Internet!</string>
+    <string name="stations">Stations</string>
+    <string name="noData">No stations found!</string>
+</resources>
